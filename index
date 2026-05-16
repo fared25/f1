@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <!-- إجبار متصفحات الجوال على اعتماد العرض الحقيقي للشاشة بنسبة 100% -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>صفحة الدعم والتبرع | Fared. M</title>
+    
+    <!-- استدعاء الخط القياسي للمتصفحات الحديثة والجوال -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary-color: #4f46e5;
+            --primary-glow: rgba(79, 70, 229, 0.4);
+            --accent-color: #06b6d4;
+            --text-color: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px; /* تقليص الحواف لتناسب الجوالات الضيقة */
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 200px; /* تصغير الفلاتر المشعة لتقليل استهلاك معالج الجوال */
+            height: 200px;
+            border-radius: 50%;
+            background: var(--primary-glow);
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 8s infinite alternate;
+        }
+        body::before { top: -20px; left: -20px; }
+        body::after { bottom: -20px; right: -20px; animation-delay: 4s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(15px, 15px) scale(1.1); }
+        }
+
+        /* كارت التبرع المتجاوب بالكامل */
+        .donation-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 440px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-area {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+        }
+
+        .logo-circle {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .profile-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .profile-title {
+            font-size: 13px;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            padding-right: 4px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            -webkit-appearance: none; /* إلغاء التنسيق الافتراضي في هواتف آيفون */
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* توزيع مرن لشبكة الأزرار على الجوال والكمبيوتر */
+        .amounts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .amount-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 12px 5px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent; /* إزالة الوميض الأزرق عند اللمس في الجوال */
+        }
+
+        .amount-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-color: transparent;
+            box-shadow: 0 5px 15px var(--primary-glow);
+        }
+
+        /* تحسين إخفاء وإظهار حقل المبلغ المخصص بكفاءة أعلى */
+        .custom-amount-wrapper {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        /* منطقة الدفع المحدثة لحل مشكلة عدم التحميل */
+        .payment-area {
+            margin-top: 25px;
+            min-height: 60px;
+        }
+
+        .payment-notice {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        #paypal-button-container {
+            width: 100%;
+        }
+
+        .social-divider {
+            height: 1px;
+            background: linear-gradient(to left, transparent, var(--card-border), transparent);
+            margin: 30px 0 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap; /* السماح بالالتفاف إذا كانت شاشة الهاتف صغيرة جداً */
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        /* توافق الأزرار مع شاشات الجوال بمختلف مقاساتها */
+        @media (max-width: 480px) {
+            .amounts-grid {
+                grid-template-columns: repeat(2, 1fr); /* تحويل الأزرار إلى عمودين لتكون مريحة للمس بالـ إصبع */
+            }
+            .donation-card {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="donation-card">
+        <!-- الهوية والشعار -->
+        <div class="logo-area">
+            <div class="logo-circle">F</div>
+        </div>
+        <h1 class="profile-name">Fared. M</h1>
+        <p class="profile-title">منشئ محتوى رقمي</p>
+
+        <!-- استمارة بيانات الداعم -->
+        <div class="input-group">
+            <label><i class="fa-regular fa-user"></i> الاسم الكريم (اختياري)</label>
+            <input type="text" id="donorName" class="input-field" placeholder="ادخل اسمك هنا">
+        </div>
+
+        <div class="input-group">
+            <label><i class="fa-regular fa-envelope"></i> البريد الإلكتروني أو رقم الجوال</label>
+            <input type="text" id="donorContact" class="input-field" placeholder="name@example.com أو 05xxxxxxx">
+        </div>
+
+        <!-- أزرار اختيار مبالغ الدعم -->
+        <div class="input-group">
+            <label><i class="fa-solid fa-hand-holding-dollar"></i> اختر قيمة الدعم (USD)</label>
+            <div class="amounts-grid">
+                <button class="amount-btn" data-value="1">$1</button>
+                <button class="amount-btn" data-value="2">$2</button>
+                <button class="amount-btn" data-value="5">$5</button>
+                <button class="amount-btn" data-value="10">$10</button>
+                <button class="amount-btn" data-value="100">$100</button>
+                <button class="amount-btn" id="customTriggerBtn" data-value="custom">مخصص</button>
+            </div>
+        </div>
+
+        <!-- حقل المبلغ المخصص الخفي -->
+        <div class="custom-amount-wrapper" id="customAmountArea">
+            <div class="input-group">
+                <label>ادخل المبلغ المخصص (دولار)</label>
+                <input type="number" id="customAmountInput" class="input-field" min="1" placeholder="مثال: 25">
+            </div>
+        </div>
+
+        <!-- منطقة بوابات الدفع -->
+        <div class="payment-area">
+            <p class="payment-notice" id="paymentNotice">يرجى تحديد مبلغ الدعم لتفعيل أزرار الدفع الآمن</p>
+            <div id="paypal-button-container"></div>
+        </div>
+تابعني على مواقع التواصل الإجتماعي 
+        <div class="social-divider"></div>
+
+        <!-- شبكة حسابات التواصل الاجتماعي -->
+        <div class="social-links">
+            <a href="https://www.tiktok.com/@fared25" target="_blank" class="social-icon" style="--hover-color: #ff0050;"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://youtube.com/@mestartechnology" target="_blank" class="social-icon" style="--hover-color: #ff0000;"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://instagram.com/farednew123" target="_blank" class="social-icon" style="--hover-color: #e1306c;"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://x.com/farednew123" target="_blank" class="social-icon" style="--hover-color: #fff;"><i class="fa-brands fa-x"></i></a>
+            <a href="https://facebook.com/farednew123" target="_blank" class="social-icon" style="--hover-color: #24292e;"><i class="fa-brands fa-facebook"></i></a>
+        </div>
+    </div>
+
+    <!-- جلب سكريبت SDK الرسمي والموثوق من خوادم PayPal مباشرة -->
+    <script src="https://www.paypal.com/sdk/js?client-id=Abcrthd5cLWjs2HO4_MhCsCqbK3qCjg6wWqHdq1pqHL49Huy-QNvyFJRrPBS_ElGJfmo51xZTXlAZSWO&currency=USD"></script>
+
+    <script>
+        let selectedAmount = 0;
+        const amountButtons = document.querySelectorAll('.amount-btn');
+        const customAmountArea = document.getElementById('customAmountArea');
+        const customAmountInput = document.getElementById('customAmountInput');
+        const paymentNotice = document.getElementById('paymentNotice');
+        const paypalContainer = document.getElementById('paypal-button-container');
+
+        amountButtons.forEach(button => {
+            // استخدام تفعيل المراقبة عبر 'click' المتوافق مع شاشات اللمس
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                amountButtons.forEach(btn => btn.classList.remove('active'));
+                
+                const value = button.getAttribute('data-value');
+
+                if (value === 'custom') {
+                    button.classList.add('active');
+                    customAmountArea.style.display = 'block';
+                    selectedAmount = parseFloat(customAmountInput.value) || 0;
+                } else {
+                    button.classList.add('active');
+                    customAmountArea.style.display = 'none';
+                    selectedAmount = parseFloat(value);
+                }
+                
+                updatePayPalButtons();
+            });
+        });
+
+        customAmountInput.addEventListener('input', () => {
+            selectedAmount = parseFloat(customAmountInput.value) || 0;
+            updatePayPalButtons();
+        });
+
+        function updatePayPalButtons() {
+            // تفريغ الأزرار لإعادة بنائها بمرونة كاملة على الجوال
+            paypalContainer.innerHTML = '';
+
+            if (selectedAmount <= 0) {
+                paymentNotice.style.display = 'block';
+                return;
+            }
+
+            paymentNotice.style.display = 'none';
+
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color:  'blue',
+                    shape:  'rect',
+                    label:  'pay'
+                },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: selectedAmount.toFixed(2)
+                            },
+                            description: `دعم من: ${document.getElementById('donorName').value || 'مجهول'} | اتصال: ${document.getElementById('donorContact').value || 'لا يوجد'}`
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('تم الدعم بنجاح! شكراً جزيلاً لك.');
+                    });
+                },
+                onError: function (err) {
+                    console.error('PayPal Error: ', err);
+                    alert('تعذر الدفع، تأكد من الاتصال بالشبكة أو إدخال بيانات صحيحة.');
+                }
+            }).render('#paypal-button-container');
+        }
+    </script>
+</body>
+</html>
