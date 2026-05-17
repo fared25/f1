@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!--  شعار F باللون الابيض يظهر في الشريط العلوي -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' font-family='sans-serif' font-weight='bold' fill='white'%3EF%3C/text%3E%3C/svg%3E">
-
     <meta charset="UTF-8">
-    <!-- إجبار متصفحات الجوال على اعتماد العرض الحقيقي للشاشة بنسبة 100% -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>الدعم | Fared. M</title>
-    
-    <!-- استدعاء الخط القياسي للمتصفحات الحديثة والجوال -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-     /* ---------------------------------------------------- */
-    /* أكواد الأزرار العائمة الجديدة (معزولة ومحميّة) */
-    /* ---------------------------------------------------- */
     .fared-floating-box {
         position: fixed;
         bottom: 25px;
@@ -41,7 +32,9 @@
         cursor: pointer;
         box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         transition: all 0.2s ease;
-        font-size: 18px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
     }
 
     .fared-btn-style:hover {
@@ -50,34 +43,62 @@
         transform: scale(1.05);
     }
 
-    /* تغيير المظهر للموقع عند تفعيل الوضع النهاري */
-    body.fared-light-mode {
-        background-color: #ffffff !important;
-        color: #1a1a1a !important;
-    }
-    body.fared-light-mode .fared-copyright,
-    body.fared-light-mode .payment-intro,
-    body.fared-light-mode .store-link,
-    body.fared-light-mode .payment-label,
-    body.fared-light-mode .payment-item .fa {
-        color: #444444 !important;
-    }
-    body.fared-light-mode .contact-link,
-    body.fared-light-mode .store-link:hover,
-    body.fared-light-mode .payment-item:hover .fa,
-    body.fared-light-mode .payment-item:hover .payment-label {
-        color: #000000 !important;
-    }
-    body.fared-light-mode .fared-btn-style {
-        background: #f0f0f0;
-        color: #444;
-        border-color: #ddd;
+    .fared-btn-style.loading {
+        pointer-events: none;
+        opacity: 0.6;
     }
 
-    /* إخفاء شريط ترجمة جوجل الافتراضي للحفاظ على نظافة متجرك */
-    #google_translate_element { display: none !important; }
-    .skiptranslate iframe, .goog-te-banner-frame { display: none !important; }
-    body { top: 0px !important; }
+    /* الوضع النهاري */
+    body.fared-light-mode {
+        background-color: #f0f0f0 !important;
+        color: #1a1a1a !important;
+    }
+    body.fared-light-mode .donation-card {
+        background: rgba(0,0,0,0.05) !important;
+        border-color: rgba(0,0,0,0.15) !important;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+    }
+    body.fared-light-mode .profile-name {
+        color: #111 !important;
+    }
+    body.fared-light-mode .input-field {
+        background: rgba(0,0,0,0.07) !important;
+        border-color: rgba(0,0,0,0.2) !important;
+        color: #111 !important;
+    }
+    body.fared-light-mode .input-field::placeholder {
+        color: #888 !important;
+    }
+    body.fared-light-mode .amount-btn {
+        background: rgba(0,0,0,0.08) !important;
+        border-color: rgba(0,0,0,0.2) !important;
+        color: #111 !important;
+    }
+    body.fared-light-mode .amount-btn.active {
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color)) !important;
+        color: #fff !important;
+        border-color: transparent !important;
+    }
+    body.fared-light-mode .social-icon {
+        background: rgba(0,0,0,0.07) !important;
+        border-color: rgba(0,0,0,0.2) !important;
+        color: #555 !important;
+    }
+    body.fared-light-mode .payment-notice {
+        color: #555 !important;
+    }
+    body.fared-light-mode .input-group label {
+        color: #444 !important;
+    }
+    body.fared-light-mode .fared-btn-style {
+        background: #e0e0e0 !important;
+        color: #333 !important;
+        border-color: #bbb !important;
+    }
+    body.fared-light-mode .social-divider {
+        background: linear-gradient(to left, transparent, rgba(0,0,0,0.2), transparent) !important;
+    }
+
         :root {
             --bg-color: #0b0f19;
             --card-bg: rgba(255, 255, 255, 0.03);
@@ -103,8 +124,8 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 15px; /* تقليص الحواف لتناسب الجوالات الضيقة */
+            align-items: flex-start;
+            padding: 30px 15px;
             overflow-x: hidden;
             position: relative;
         }
@@ -112,7 +133,7 @@
         body::before, body::after {
             content: '';
             position: absolute;
-            width: 200px; /* تصغير الفلاتر المشعة لتقليل استهلاك معالج الجوال */
+            width: 200px;
             height: 200px;
             border-radius: 50%;
             background: var(--primary-glow);
@@ -128,7 +149,6 @@
             100% { transform: translate(15px, 15px) scale(1.1); }
         }
 
-        /* كارت التبرع المتجاوب بالكامل */
         .donation-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -199,7 +219,7 @@
             color: #fff;
             font-size: 14px;
             outline: none;
-            -webkit-appearance: none; /* إلغاء التنسيق الافتراضي في هواتف آيفون */
+            -webkit-appearance: none;
         }
 
         .input-field:focus {
@@ -207,7 +227,6 @@
             background: rgba(255, 255, 255, 0.08);
         }
 
-        /* توزيع مرن لشبكة الأزرار على الجوال والكمبيوتر */
         .amounts-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -224,7 +243,7 @@
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            -webkit-tap-highlight-color: transparent; /* إزالة الوميض الأزرق عند اللمس في الجوال */
+            -webkit-tap-highlight-color: transparent;
         }
 
         .amount-btn.active {
@@ -233,13 +252,11 @@
             box-shadow: 0 5px 15px var(--primary-glow);
         }
 
-        /* تحسين إخفاء وإظهار حقل المبلغ المخصص بكفاءة أعلى */
         .custom-amount-wrapper {
             display: none;
             margin-bottom: 20px;
         }
 
-        /* منطقة الدفع المحدثة لحل مشكلة عدم التحميل */
         .payment-area {
             margin-top: 25px;
             min-height: 60px;
@@ -265,7 +282,7 @@
             display: flex;
             justify-content: center;
             gap: 12px;
-            flex-wrap: wrap; /* السماح بالالتفاف إذا كانت شاشة الهاتف صغيرة جداً */
+            flex-wrap: wrap;
         }
 
         .social-icon {
@@ -282,265 +299,290 @@
             text-decoration: none;
         }
 
-        /* توافق الأزرار مع شاشات الجوال بمختلف مقاساتها */
         @media (max-width: 480px) {
             .amounts-grid {
-                grid-template-columns: repeat(2, 1fr); /* تحويل الأزرار إلى عمودين لتكون مريحة للمس بالـ إصبع */
+                grid-template-columns: repeat(2, 1fr);
             }
             .donation-card {
                 padding: 25px 15px;
             }
         }
     </style>
-    
 </head>
 <body>
 
     <div class="donation-card">
-        <!-- الهوية والشعار -->
         <div class="logo-area">
             <div class="logo-circle">F</div>
         </div>
         <h1 class="profile-name">Fared. M (fared25)</h1>
-        <p class="profile-title">جيمزر كمبيوتر / صانع محتوى / يوتيوبر / ستريمر 
-        <br>
-        مصمم تطبيقات / وكيل ذكاء اصطناعي</p>
-                <div class="social-divider"></div>
 
-هذه الصفحة مخصصة لدعم المحتوى الذي أقدمه
-                <div class="social-divider"></div>
+        <!-- ✅ العنوان مع ترجمة مضمّنة -->
+        <p class="profile-title">
+            <span class="translatable"
+                  data-ar="جيمزر كمبيوتر / صانع محتوى / يوتيوبر / ستريمر"
+                  data-en="PC Gamer / Content Creator / YouTuber / Streamer">
+                جيمزر كمبيوتر / صانع محتوى / يوتيوبر / ستريمر
+            </span>
+            <br>
+            <span class="translatable"
+                  data-ar="مصمم تطبيقات / وكيل ذكاء اصطناعي"
+                  data-en="App Designer / AI Agent">
+                مصمم تطبيقات / وكيل ذكاء اصطناعي
+            </span>
+        </p>
 
-        <!-- استمارة بيانات الداعم -->
+        <div class="social-divider"></div>
+
+        <span class="translatable"
+              data-ar="هذه الصفحة مخصصة لدعم المحتوى الذي أقدمه"
+              data-en="This page is dedicated to supporting the content I provide">
+            هذه الصفحة مخصصة لدعم المحتوى الذي أقدمه
+        </span>
+        <div class="social-divider"></div>
+
         <div class="input-group">
-            <label><i class="fa-regular fa-user"></i> الاسم الكريم (اختياري)</label>
-            <input type="text" id="donorName" class="input-field" placeholder="ادخل اسمك هنا">
+            <label><i class="fa-regular fa-user"></i>
+                <span class="translatable" data-ar="الاسم الكريم (اختياري)" data-en="Full Name (optional)">الاسم الكريم (اختياري)</span>
+            </label>
+            <input type="text" id="donorName" class="input-field"
+                   placeholder="ادخل اسمك هنا"
+                   data-ar-placeholder="ادخل اسمك هنا"
+                   data-en-placeholder="Enter your name here">
         </div>
 
         <div class="input-group">
-            <label><i class="fa-regular fa-envelope"></i> البريد الإلكتروني أو رقم الجوال</label>
-            <input type="text" id="donorContact" class="input-field" placeholder="name@example.com أو 05xxxxxxx">
+            <label><i class="fa-regular fa-envelope"></i>
+                <span class="translatable" data-ar="البريد الإلكتروني أو رقم الجوال" data-en="Email or Phone Number">البريد الإلكتروني أو رقم الجوال</span>
+            </label>
+            <input type="text" id="donorContact" class="input-field"
+                   placeholder="name@example.com أو 05xxxxxxx"
+                   data-ar-placeholder="name@example.com أو 05xxxxxxx"
+                   data-en-placeholder="name@example.com or 05xxxxxxx">
         </div>
 
-        <!-- أزرار اختيار مبالغ الدعم -->
         <div class="input-group">
-            <label><i class="fa-solid fa-hand-holding-dollar"></i> اختر قيمة الدعم (USD)</label>
+            <label><i class="fa-solid fa-hand-holding-dollar"></i>
+                <span class="translatable" data-ar="اختر قيمة الدعم (USD)" data-en="Choose Support Amount (USD)">اختر قيمة الدعم (USD)</span>
+            </label>
             <div class="amounts-grid">
                 <button class="amount-btn" data-value="1">$1</button>
                 <button class="amount-btn" data-value="2">$2</button>
                 <button class="amount-btn" data-value="5">$5</button>
                 <button class="amount-btn" data-value="10">$10</button>
                 <button class="amount-btn" data-value="100">$100</button>
-                <button class="amount-btn" id="customTriggerBtn" data-value="custom">مخصص</button>
+                <button class="amount-btn" id="customTriggerBtn" data-value="custom">
+                    <span class="translatable" data-ar="مخصص" data-en="Custom">مخصص</span>
+                </button>
             </div>
         </div>
 
-        <!-- حقل المبلغ المخصص الخفي -->
         <div class="custom-amount-wrapper" id="customAmountArea">
             <div class="input-group">
-                <label>ادخل المبلغ المخصص (دولار)</label>
-                <input type="number" id="customAmountInput" class="input-field" min="1" placeholder="مثال: 25">
+                <label>
+                    <span class="translatable" data-ar="ادخل المبلغ المخصص (دولار)" data-en="Enter Custom Amount (USD)">ادخل المبلغ المخصص (دولار)</span>
+                </label>
+                <input type="number" id="customAmountInput" class="input-field" min="1"
+                       placeholder="مثال: 25"
+                       data-ar-placeholder="مثال: 25"
+                       data-en-placeholder="Example: 25">
             </div>
         </div>
 
-        <!-- منطقة بوابات الدفع -->
         <div class="payment-area">
-            <p class="payment-notice" id="paymentNotice">يرجى تحديد مبلغ الدعم لتفعيل أزرار الدفع الآمن✅</p>
+            <p class="payment-notice" id="paymentNotice">
+                <span class="translatable"
+                      data-ar="يرجى تحديد مبلغ الدعم لتفعيل أزرار الدفع الآمن✅"
+                      data-en="Please select a support amount to activate secure payment buttons✅">
+                    يرجى تحديد مبلغ الدعم لتفعيل أزرار الدفع الآمن✅
+                </span>
+            </p>
             <div id="paypal-button-container"></div>
         </div>
-<div class="fared-footer-container">
-    
-   
-<br>
-  <div style="text-align: center; margin-top: -40px; padding: 20px 0; font-family: sans-serif;">
-    
-   
 
-    <!-- منطقة الصور المباشرة والأسماء تحتها مباشرة -->
-    <div style="margin-bottom: 20px;">
-        
-        <!-- Mastercard -->
-        <div style="display: inline-block; width: 90px; margin: 0 15px; text-align: center; vertical-align: top;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard" style="height: 26px; width: auto; display: inline-block; margin-bottom: 6px;">
-            <span style="display: block; font-size: 11px; color: #797676; text-transform: uppercase;">Mastercard</span>
-        </div>
-        
-        <!-- Visa -->
-        <div style="display: inline-block; width: 90px; margin: 0 15px; text-align: center; vertical-align: top;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Visa_Inc._logo_%282021%E2%80%93present%29.svg/3840px-Visa_Inc._logo_%282021%E2%80%93present%29.svg.png" alt="Visa" style="height: 26px; width: auto; display: inline-block; margin-bottom: 6px;">
-            <span style="display: block; font-size: 11px; color: #797676; text-transform: uppercase;">Visa</span>
-        </div>
-        
-        <!-- PayPal -->
-        <div style="display: inline-block; width: 90px; margin: 0 15px; text-align: center; vertical-align: top;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1280px-PayPal.svg.png?utm_source=ar.wikipedia.org&utm_campaign=index&utm_content=thumbnail" alt="PayPal" style="height: 26px; width: auto; display: inline-block; margin-bottom: 6px;">
-            <span style="display: block; font-size: 11px; color: #797676; text-transform: uppercase;">PayPal</span>
-        </div>
-    </div>
-</div>
-        <p style="color: #797676; font-size: 13px; margin: 15px 0 0 0;">
-        لمزيد من طرق الدفع
-               <a href="mailto:farednew123@gmail.com" class="contact-link">تواصل معنا</a>
+        <div class="fared-footer-container">
+            <br>
+            <div style="text-align: center; margin-top: -40px; padding: 20px 0; font-family: sans-serif;">
+                <div style="margin-bottom: 20px;">
+                    <div style="display: inline-block; width: 90px; margin: 0 15px; text-align: center; vertical-align: top;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard" style="height: 26px; width: auto; display: inline-block; margin-bottom: 6px;">
+                        <span style="display: block; font-size: 11px; color: #797676; text-transform: uppercase;">Mastercard</span>
+                    </div>
+                    <div style="display: inline-block; width: 90px; margin: 0 15px; text-align: center; vertical-align: top;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Visa_Inc._logo_%282021%E2%80%93present%29.svg/3840px-Visa_Inc._logo_%282021%E2%80%93present%29.svg.png" alt="Visa" style="height: 26px; width: auto; display: inline-block; margin-bottom: 6px;">
+                        <span style="display: block; font-size: 11px; color: #797676; text-transform: uppercase;">Visa</span>
+                    </div>
+                    <div style="display: inline-block; width: 90px; margin: 0 15px; text-align: center; vertical-align: top;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1280px-PayPal.svg.png" alt="PayPal" style="height: 26px; width: auto; display: inline-block; margin-bottom: 6px;">
+                        <span style="display: block; font-size: 11px; color: #797676; text-transform: uppercase;">PayPal</span>
+                    </div>
+                </div>
+            </div>
 
-    </p>
-        <div class="social-divider"></div>
-تابعني على مواقع التواصل الإجتماعي:
-<br>
-<br>
-        <!-- شبكة حسابات التواصل الاجتماعي -->
-        <div class="social-links">
-            <a href="https://www.tiktok.com/@fared25" target="_blank" class="social-icon" style="--hover-color: #ff0050;"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="https://youtube.com/@mestartechnology" target="_blank" class="social-icon" style="--hover-color: #ff0000;"><i class="fa-brands fa-youtube"></i></a>
-            <a href="https://instagram.com/farednew123" target="_blank" class="social-icon" style="--hover-color: #e1306c;"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://x.com/farednew123" target="_blank" class="social-icon" style="--hover-color: #fff;"><i class="fa-brands fa-x"></i></a>
-            <a href="https://facebook.com/farednew123" target="_blank" class="social-icon" style="--hover-color: #24292e;"><i class="fa-brands fa-facebook"></i></a>
-        </div>
-    </div>
+            <p style="color: #797676; font-size: 13px; margin: 15px 0 0 0;">
+                <span class="translatable" data-ar="لمزيد من طرق الدفع" data-en="For more payment methods">لمزيد من طرق الدفع</span>
+                <a href="mailto:farednew123@gmail.com" style="color: #797676;">
+                    <span class="translatable" data-ar="تواصل معنا" data-en="Contact us">تواصل معنا</span>
+                </a>
+            </p>
+
             <div class="social-divider"></div>
+            <span class="translatable"
+                  data-ar="تابعني على مواقع التواصل الإجتماعي:"
+                  data-en="Follow me on social media:">
+                تابعني على مواقع التواصل الإجتماعي:
+            </span>
+            <br><br>
 
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@fared25" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://youtube.com/@mestartechnology" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://instagram.com/farednew123" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://x.com/farednew123" target="_blank" class="social-icon"><i class="fa-brands fa-x"></i></a>
+                <a href="https://facebook.com/farednew123" target="_blank" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
 
-        <!-- نص الحقوق الأسفل مع تحديث السنة تلقائياً -->
-    <p style="color: #797676; font-size: 13px; margin: 15px 0 0 0;">
-        جميع الحقوق محفوظة &copy; <span id="fared-year"></span>
-        <a href="https://fared.top" style="color: #797676; text-decoration: none; font-weight: bold;">Fared. M</a>
-    </p>
+        <div class="social-divider"></div>
 
-</div>
+        <p style="color: #797676; font-size: 13px; margin: 15px 0 0 0;">
+            <span class="translatable" data-ar="جميع الحقوق محفوظة" data-en="All rights reserved">جميع الحقوق محفوظة</span>
+            &copy; <span id="fared-year"></span>
+            <a href="https://fared.top" style="color: #797676; text-decoration: none; font-weight: bold;">Fared. M</a>
+        </p>
+    </div>
 
- 
-
-<!-- سكربت تحديث السنة التلقائي المضمون -->
 <script>
     document.getElementById("fared-year").textContent = new Date().getFullYear();
 </script>
 
-    
-    <!-- جلب سكريبت SDK الرسمي والموثوق من خوادم PayPal مباشرة -->
-    <script src="https://www.paypal.com/sdk/js?client-id=Abcrthd5cLWjs2HO4_MhCsCqbK3qCjg6wWqHdq1pqHL49Huy-QNvyFJRrPBS_ElGJfmo51xZTXlAZSWO&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=Abcrthd5cLWjs2HO4_MhCsCqbK3qCjg6wWqHdq1pqHL49Huy-QNvyFJRrPBS_ElGJfmo51xZTXlAZSWO&currency=USD"></script>
 
-    <script>
-        let selectedAmount = 0;
-        const amountButtons = document.querySelectorAll('.amount-btn');
-        const customAmountArea = document.getElementById('customAmountArea');
-        const customAmountInput = document.getElementById('customAmountInput');
-        const paymentNotice = document.getElementById('paymentNotice');
-        const paypalContainer = document.getElementById('paypal-button-container');
+<script>
+    let selectedAmount = 0;
+    const amountButtons = document.querySelectorAll('.amount-btn');
+    const customAmountArea = document.getElementById('customAmountArea');
+    const customAmountInput = document.getElementById('customAmountInput');
+    const paymentNotice = document.getElementById('paymentNotice');
+    const paypalContainer = document.getElementById('paypal-button-container');
 
-        amountButtons.forEach(button => {
-            // استخدام تفعيل المراقبة عبر 'click' المتوافق مع شاشات اللمس
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                amountButtons.forEach(btn => btn.classList.remove('active'));
-                
-                const value = button.getAttribute('data-value');
-
-                if (value === 'custom') {
-                    button.classList.add('active');
-                    customAmountArea.style.display = 'block';
-                    selectedAmount = parseFloat(customAmountInput.value) || 0;
-                } else {
-                    button.classList.add('active');
-                    customAmountArea.style.display = 'none';
-                    selectedAmount = parseFloat(value);
-                }
-                
-                updatePayPalButtons();
-            });
-        });
-
-        customAmountInput.addEventListener('input', () => {
-            selectedAmount = parseFloat(customAmountInput.value) || 0;
+    amountButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            const value = button.getAttribute('data-value');
+            if (value === 'custom') {
+                button.classList.add('active');
+                customAmountArea.style.display = 'block';
+                selectedAmount = parseFloat(customAmountInput.value) || 0;
+            } else {
+                button.classList.add('active');
+                customAmountArea.style.display = 'none';
+                selectedAmount = parseFloat(value);
+            }
             updatePayPalButtons();
         });
+    });
 
-        function updatePayPalButtons() {
-            // تفريغ الأزرار لإعادة بنائها بمرونة كاملة على الجوال
-            paypalContainer.innerHTML = '';
+    customAmountInput.addEventListener('input', () => {
+        selectedAmount = parseFloat(customAmountInput.value) || 0;
+        updatePayPalButtons();
+    });
 
-            if (selectedAmount <= 0) {
-                paymentNotice.style.display = 'block';
-                return;
-            }
-
-            paymentNotice.style.display = 'none';
-
-            paypal.Buttons({
-                style: {
-                    layout: 'vertical',
-                    color:  'blue',
-                    shape:  'rect',
-                    label:  'pay'
-                },
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: selectedAmount.toFixed(2)
-                            },
-                            description: `دعم من: ${document.getElementById('donorName').value || 'مجهول'} | اتصال: ${document.getElementById('donorContact').value || 'لا يوجد'}`
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert('تم الدعم بنجاح! شكراً جزيلاً لك.');
-                    });
-                },
-                onError: function (err) {
-                    console.error('PayPal Error: ', err);
-                    alert('تعذر الدفع، تأكد من الاتصال بالشبكة أو إدخال بيانات صحيحة.');
-                }
-            }).render('#paypal-button-container');
+    function updatePayPalButtons() {
+        paypalContainer.innerHTML = '';
+        if (selectedAmount <= 0) {
+            paymentNotice.style.display = 'block';
+            return;
         }
-    </script>
+        paymentNotice.style.display = 'none';
+        paypal.Buttons({
+            style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'pay' },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { value: selectedAmount.toFixed(2) },
+                        description: `Support from: ${document.getElementById('donorName').value || 'Anonymous'} | Contact: ${document.getElementById('donorContact').value || 'N/A'}`
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('تم الدعم بنجاح! شكراً جزيلاً لك.');
+                });
+            },
+            onError: function(err) {
+                console.error('PayPal Error: ', err);
+                alert('تعذر الدفع، تأكد من الاتصال بالشبكة أو إدخال بيانات صحيحة.');
+            }
+        }).render('#paypal-button-container');
+    }
+</script>
+
 </body>
-<!-- عناصر الأزرار العائمة -->
+
+<!-- الأزرار العائمة -->
 <div class="fared-floating-box">
     <!-- زر المظهر -->
     <button class="fared-btn-style" id="fared-theme-btn" title="تغيير المظهر">
-        <i class="fa fa-moon-o" id="fared-icon"></i>
+        <i class="fa-regular fa-moon" id="fared-icon"></i>
     </button>
-    <!-- زر الترجمة -->
+    <!-- ✅ زر الترجمة بنص EN/AR بدل الأيقونة -->
     <button class="fared-btn-style" id="fared-lang-btn" title="Translate / ترجمة">
-        <i class="fa fa-language"></i>
+        <span id="fared-lang-label">EN</span>
     </button>
 </div>
 
-<!-- نظام الترجمة من جوجل الخلفي -->
-<div id="google_translate_element"></div>
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'ar',
-            includedLanguages: 'en,ar',
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-    }
-</script>
-<script type="text/javascript" src="//://google.com"></script>
-
-<!-- السكربت التشغيلي الذكي -->
 <script>
-    // 1. الوضع الليلي والنهاري
+    // 1. زر الوضع الليلي / النهاري
     const fThemeBtn = document.getElementById('fared-theme-btn');
     const fIcon = document.getElementById('fared-icon');
     fThemeBtn.addEventListener('click', function() {
         document.body.classList.toggle('fared-light-mode');
-        if(document.body.classList.contains('fared-light-mode')) {
-            fIcon.className = 'fa fa-sun-o';
-        } else {
-            fIcon.className = 'fa fa-moon-o';
-        }
+        fIcon.className = document.body.classList.contains('fared-light-mode')
+            ? 'fa-regular fa-sun'
+            : 'fa-regular fa-moon';
     });
 
-    // 2. الترجمة الفورية
-    document.getElementById('fared-lang-btn').addEventListener('click', function() {
-        const gCombo = document.querySelector('.goog-te-combo');
-        if (gCombo) {
-            gCombo.value = (gCombo.value === 'en') ? 'ar' : 'en';
-            gCombo.dispatchEvent(new Event('change'));
+    // 2. نظام الترجمة - الترجمات مخزّنة مسبقاً في data-en (بدون API لسرعة أكبر)
+    let isTranslated = false;
+    const translatables = document.querySelectorAll('.translatable');
+    const langLabel = document.getElementById('fared-lang-label');
+
+    function doTranslate() {
+        const btn = document.getElementById('fared-lang-btn');
+        btn.classList.add('loading');
+
+        if (!isTranslated) {
+            // تحويل للإنجليزية
+            translatables.forEach(el => {
+                el.textContent = el.getAttribute('data-en');
+            });
+            document.querySelectorAll('[data-en-placeholder]').forEach(input => {
+                input.placeholder = input.getAttribute('data-en-placeholder');
+            });
+            document.documentElement.lang = 'en';
+            document.documentElement.dir = 'ltr';
+            langLabel.textContent = 'AR';
+            isTranslated = true;
         } else {
-            alert("جاري الاتصال بخوادم الترجمة، فضلاً انتظر ثانية وأعد المحاولة.");
+            // رجوع للعربية
+            translatables.forEach(el => {
+                el.textContent = el.getAttribute('data-ar');
+            });
+            document.querySelectorAll('[data-ar-placeholder]').forEach(input => {
+                input.placeholder = input.getAttribute('data-ar-placeholder');
+            });
+            document.documentElement.lang = 'ar';
+            document.documentElement.dir = 'rtl';
+            langLabel.textContent = 'EN';
+            isTranslated = false;
         }
-    });
+
+        btn.classList.remove('loading');
+    }
+
+    document.getElementById('fared-lang-btn').addEventListener('click', doTranslate);
+</script>
 
 </html>
